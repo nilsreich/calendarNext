@@ -2,6 +2,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { useLocale } from "next-intl";
 import { notFound } from "next/navigation";
+import { Toaster } from "@/components/ui/toaster";
+import { HMSRoomProvider } from "@100mslive/react-sdk";
 
 const locales = ["en", "de"];
 export const metadata = {
@@ -21,14 +23,17 @@ export default function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        <HMSRoomProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <Toaster />
+          </ThemeProvider>
+        </HMSRoomProvider>
       </body>
     </html>
   );
