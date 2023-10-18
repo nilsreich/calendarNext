@@ -1,9 +1,7 @@
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { useLocale } from "next-intl";
+import { Providers } from "@/components/Providers";
 import { notFound } from "next/navigation";
 import { Toaster } from "@/components/ui/toaster";
-import { HMSRoomProvider } from "@100mslive/react-sdk";
 
 const locales = ["en", "de"];
 export const metadata = {
@@ -16,6 +14,7 @@ export default function RootLayout({
   params: { locale },
 }: {
   children: React.ReactNode;
+  params: any;
 }) {
   // Validate that the incoming `locale` parameter is valid
   const isValidLocale = locales.some((cur) => cur === locale);
@@ -23,17 +22,15 @@ export default function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body>
-        <HMSRoomProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <Toaster />
-          </ThemeProvider>
-        </HMSRoomProvider>
+        <Providers
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );
